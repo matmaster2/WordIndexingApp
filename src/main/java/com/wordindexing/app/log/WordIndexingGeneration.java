@@ -15,7 +15,7 @@ public class WordIndexingGeneration {
      * Method that used to indexes and displays a list containing the indexed words
      */
     public void wordIndexing(String sentence) {
-        List<Character> letters = createLettersList(sentence);
+        Set<Character> letters = createLettersList(sentence);
         for (char x : letters) {
             listOfWords.add(new WordIndex(x));
         }
@@ -26,13 +26,13 @@ public class WordIndexingGeneration {
     /**
      * @return letter-only list of unique characters
      */
-    private List<Character> createLettersList(String sentence) {
+    private Set<Character> createLettersList(String sentence) {
         char[] letters = sentence.toLowerCase().replaceAll("[^a-z]", "").toCharArray();
-        Set<Character> charSet = new HashSet<>();
+        SortedSet<Character> charSet = new TreeSet<>();
         for (char c : letters) {
             charSet.add(c);
         }
-        return new ArrayList<>(charSet);
+        return charSet;
     }
 
     /**
@@ -43,7 +43,7 @@ public class WordIndexingGeneration {
      */
     private void fillWordsArray(List<WordIndex> listOfWordIndexes, String sentence) {
         String formattedSentence = sentence.toLowerCase().replaceAll("[^a-z\\s]", "");
-        ArrayList<String> words = new ArrayList<String>(Arrays.asList(formattedSentence.split(" ")));
+        ArrayList<String> words = new ArrayList<>(Arrays.asList(formattedSentence.split(" ")));
 
         for (WordIndex wordIndex : listOfWordIndexes) {
             char letter = wordIndex.getLetter();
