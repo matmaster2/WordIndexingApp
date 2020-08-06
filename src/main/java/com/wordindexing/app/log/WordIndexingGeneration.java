@@ -5,28 +5,34 @@ import com.wordindexing.app.obj.WordIndex;
 import java.util.*;
 
 /**
- * The class is used to generate list of index words in a sentence depending on the presence of the letter.
+ * The class is used to generate list of objects based on a sentence.
+ * Each object in the list stores data on a unique letter and a list of words in which that letter is used.
  */
 public class WordIndexingGeneration {
 
     private List<WordIndex> listOfWords = new ArrayList<>();
 
     /**
-     * Method that used to indexes and displays a list containing the indexed words
+     * Method that used to indexes and displays a list containing the indexed word.
+     *
+     * @param sentence base on sentence the words will be indexed
+     * @return list of WordIndex objects contains data about letters and words in which this letter appears.
      */
-    public void wordIndexing(String sentence) {
-        Set<Character> letters = createLettersList(sentence);
+    public List<WordIndex> wordIndexing(String sentence) {
+        Set<Character> letters = createLettersSet(sentence);
         for (char x : letters) {
             listOfWords.add(new WordIndex(x));
         }
         fillWordsArray(listOfWords, sentence);
         listOfWords.forEach(System.out::println);
+        return listOfWords;
     }
 
     /**
-     * @return letter-only list of unique characters
+     * @param sentence base on sentence the words will be indexed
+     * @return letter-only set of unique characters
      */
-    private Set<Character> createLettersList(String sentence) {
+    private Set<Character> createLettersSet(String sentence) {
         char[] letters = sentence.toLowerCase().replaceAll("[^a-z]", "").toCharArray();
         SortedSet<Character> charSet = new TreeSet<>();
         for (char c : letters) {
